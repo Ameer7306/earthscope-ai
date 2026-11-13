@@ -4,6 +4,8 @@ services:
   - type: web
     name: earthscope-ai
     runtime: python
+    repo: https://github.com/Ameer7306/earthscope-ai.git
+    branch: main
     plan: free
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     # Render provides the port in $PORT; the app must listen on 0.0.0.0.
@@ -14,7 +16,10 @@ services:
     autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.7
+        value: 3.11.9
+      # Environment values must be strings, so "true" is quoted.
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: "true"
       # Optional keys: leave empty or fill them in on the Render dashboard (never commit real keys).
       - key: OPENAI_API_KEY
         sync: false
