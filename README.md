@@ -40,6 +40,18 @@ Copy `.env.example` to `.env` and fill in:
 
 Keys are read server-side from environment variables or `.streamlit/secrets.toml` and are never sent to the browser.
 
+### Deploy on Render
+
+The repository includes `render.yaml`, a Render Blueprint.
+
+1. Sign in at https://render.com with GitHub and give Render access to this repository.
+2. Choose **New + → Blueprint**, pick the repository and click **Apply**.
+3. Wait for the first build (several minutes). The app is then live at `https://<service-name>.onrender.com`.
+
+Notes for the free plan: the service sleeps after about 15 minutes without visitors and takes roughly a
+minute to wake; it has 512 MB of memory; and its disk is temporary, so the analysis history and the
+download cache start empty after each restart. Add optional keys under the service's **Environment** tab.
+
 ### Optional FastAPI service
 
 ```

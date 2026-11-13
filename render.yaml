@@ -1,0 +1,26 @@
+# Render Blueprint for EarthScope AI.
+# In Render: New + -> Blueprint -> pick this repository. Render reads this file and creates the service.
+services:
+  - type: web
+    name: earthscope-ai
+    runtime: python
+    plan: free
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    # Render provides the port in $PORT; the app must listen on 0.0.0.0.
+    startCommand: >-
+      streamlit run app.py --server.port $PORT --server.address 0.0.0.0
+      --server.headless true --server.fileWatcherType none --browser.gatherUsageStats false
+    healthCheckPath: /_stcore/health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      # Optional keys: leave empty or fill them in on the Render dashboard (never commit real keys).
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: FIRMS_MAP_KEY
+        sync: false
+      - key: NASA_API_KEY
+        sync: false
